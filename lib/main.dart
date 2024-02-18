@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rampi_dashboard/controller/markers.dart';
 import 'package:rampi_dashboard/firebase_options.dart';
@@ -20,7 +21,7 @@ void main() async {
     );
   });
   await createMarkers();
-  runApp(const MyApp());
+  runApp(const GetMaterialApp(home: MyHomePage(title: 'Dashboard')));
 }
 
 class MyApp extends StatelessWidget {
