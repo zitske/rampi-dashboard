@@ -21,16 +21,15 @@ Future<void> createMarkers() async {
     markers.add(Marker(
         markerId: MarkerId(element.id),
         position: LatLng(element['coordenadas'][0], element['coordenadas'][1]),
-        infoWindow: InfoWindow(
+        /*infoWindow: InfoWindow(
             title:
                 'Inclinação: ${inclinacaoText(element["inclinacao"])} \n Condição: ${conditionText(element["condicao"])}',
             snippet:
-                "Lat: ${element['coordenadas'][0]}  Long:${element['coordenadas'][1]}"),
+                "Lat: ${element['coordenadas'][0]}  Long:${element['coordenadas'][1]}"),*/
         icon: BitmapDescriptor.defaultMarker,
         onTap: () {
-          globals.id = element.id;
+          c.id.value = element.id;
           c.selected.value = true;
-          globals.setWidget;
         }));
   }
   globals.Markers = markers;
