@@ -1,4 +1,9 @@
 import 'dart:async';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/state_manager.dart';
+import 'package:rampi_dashboard/controller/controllers.dart';
 import 'package:rampi_dashboard/globals.dart' as globals;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Controller c = Get.find();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -48,8 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Stack(children: [
           GoogleMap(
             onTap: (value) {
-              globals.selected = false;
-              setState(() {});
+              c.selected.value = false;
             },
             mapType: MapType.terrain,
             initialCameraPosition: globals.userPos,

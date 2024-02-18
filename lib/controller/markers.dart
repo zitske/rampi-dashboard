@@ -2,13 +2,18 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/state_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rampi_dashboard/controller/conditions.dart';
+import 'package:rampi_dashboard/controller/controllers.dart';
 import 'package:rampi_dashboard/model/rampa_class.dart';
 import 'package:intl/intl.dart';
 import 'package:rampi_dashboard/globals.dart' as globals;
 
 Future<void> createMarkers() async {
+  final Controller c = Get.find();
   QuerySnapshot querySnapshot =
       await FirebaseFirestore.instance.collection('rampas').get();
   List<Marker> markers = [];
@@ -24,7 +29,7 @@ Future<void> createMarkers() async {
         icon: BitmapDescriptor.defaultMarker,
         onTap: () {
           globals.id = element.id;
-          globals.selected = true;
+          c.selected.value = true;
           globals.setWidget;
         }));
   }

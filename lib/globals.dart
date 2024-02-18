@@ -3,7 +3,7 @@ library my_prj.globals;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 String id = "";
-bool selected = false;
+
 void setWidget = () {};
 List<Marker> Markers = [];
 CameraPosition userPos = CameraPosition(

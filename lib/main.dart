@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/instance_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rampi_dashboard/controller/controllers.dart';
 import 'package:rampi_dashboard/controller/markers.dart';
 import 'package:rampi_dashboard/firebase_options.dart';
 import 'package:rampi_dashboard/view/main_view.dart';
@@ -10,6 +13,7 @@ import 'package:rampi_dashboard/globals.dart' as globals;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final Controller c = Get.put(Controller());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/instance_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rampi_dashboard/controller/conditions.dart';
+import 'package:rampi_dashboard/controller/controllers.dart';
 import 'package:rampi_dashboard/model/rampa_class.dart';
 import 'package:intl/intl.dart';
 import 'package:rampi_dashboard/globals.dart' as globals;
@@ -15,9 +19,10 @@ class PinCard extends StatefulWidget {
 class _PinCardState extends State<PinCard> {
   @override
   Widget build(BuildContext context) {
-    globals.setWidget = setState(() {});
-    return Visibility(
-        visible: globals.selected,
+    final Controller c = Get.find();
+
+    return Obx(() => Visibility(
+        visible: c.selected.value,
         child: Positioned(
           bottom: 50,
           right: 50,
@@ -235,6 +240,6 @@ class _PinCardState extends State<PinCard> {
                         ),
                 ),
               )),
-        ));
+        )));
   }
 }
