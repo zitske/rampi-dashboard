@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final Controller c = Get.find();
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: Colors.blue,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
