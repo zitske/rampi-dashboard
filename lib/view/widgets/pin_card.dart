@@ -249,9 +249,9 @@ class _PinCardState extends State<PinCard> {
                                             )
                                           ],
                                         ),
-                                        SizedBox(
+                                        /*SizedBox(
                                           height: 20,
-                                        ),
+                                        )
                                         Row(
                                           children: [
                                             Column(
@@ -292,6 +292,7 @@ class _PinCardState extends State<PinCard> {
                                             ),
                                           ],
                                         ),
+                                        */
                                         Spacer(),
                                         Text(
                                           "Adicionado em ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(c.rampa.value.dataAdicionado))}",
