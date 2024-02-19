@@ -1,16 +1,11 @@
-# rampi_dashboard
+# Rampi - Dashboard
 
-A new Flutter project.
+Rampi - Democratizando Mobilidade Urbana
 
-## Getting Started
+## O que é o Rampi?
 
-This project is a starting point for a Flutter application.
+O Rampi é um projeto cujo objetivo é mapear as rampas de acessibilidade para facilitar o deslocamento dos cadeirantes pelas cidades.
 
-A few resources to get you started if this is your first Flutter project:
+## O que é o Rampi - Dashboard?
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+O Rampi Dashboard tem o objetivo de monitorar os dados já apurados das rampas.
