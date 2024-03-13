@@ -44,11 +44,14 @@ class _MyHomePageState extends State<MyHomePage> {
     final Controller c = Get.find();
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: const Color(0xFF0191E2),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [Text(widget.title)],
+            children: [
+              SizedBox(height: 150, child: Image.asset("assets/logo.png")),
+              //Text(widget.title)
+            ],
           ),
         ),
         body: Stack(children: [
