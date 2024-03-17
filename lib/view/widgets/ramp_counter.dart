@@ -14,7 +14,10 @@ class _RampCounterState extends State<RampCounter> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('rampas').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('rampas')
+            .where("approved", isEqualTo: true)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

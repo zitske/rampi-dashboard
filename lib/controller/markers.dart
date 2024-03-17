@@ -14,8 +14,10 @@ import 'package:rampi_dashboard/globals.dart' as globals;
 
 Future<void> createMarkers() async {
   final Controller c = Get.find();
-  QuerySnapshot querySnapshot =
-      await FirebaseFirestore.instance.collection('rampas').get();
+  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      .collection('rampas')
+      .where("approved", isEqualTo: true)
+      .get();
   List<Marker> markers = [];
   for (var element in querySnapshot.docs) {
     markers.add(Marker(
