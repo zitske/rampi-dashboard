@@ -77,6 +77,19 @@ class _PinCardState extends State<PinCard> {
                                           MainAxisAlignment.start,
                                       //crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              IconButton(
+                                                icon: Icon(Icons.close),
+                                                onPressed: () {
+                                                  c.selected.value = false;
+                                                },
+                                              ),
+                                            ]),
                                         InkWell(
                                           onTap: () {
                                             print("Clicou na imagem");
@@ -352,291 +365,321 @@ class _PinCardState extends State<PinCard> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: c.id.isEmpty
-                        ? Center(
-                            child: Text("Selecione uma rampa."),
-                          )
-                        : FutureBuilder<DocumentSnapshot>(
-                            future: FirebaseFirestore.instance
-                                .collection('rampas')
-                                .doc(c.id.value)
-                                .get(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting)
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              if (snapshot.hasError)
-                                return Text("Erro ao carregar informações");
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            c.selected.value = false;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: c.id.isEmpty
+                            ? Center(
+                                child: Text("Selecione uma rampa."),
+                              )
+                            : FutureBuilder<DocumentSnapshot>(
+                                future: FirebaseFirestore.instance
+                                    .collection('rampas')
+                                    .doc(c.id.value)
+                                    .get(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting)
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  if (snapshot.hasError)
+                                    return Text("Erro ao carregar informações");
 
-                              if (snapshot.hasData) {
-                                var ramp = snapshot.data;
-                                c.rampa.value = Rampa(
-                                  coordenadas: [
-                                    ramp!['coordenadas'][0],
-                                    ramp!['coordenadas'][1]
-                                  ],
-                                  dataAdicionado: ramp['data_adicionado'],
-                                  inclinacao: ramp['inclinacao'],
-                                  condicao: ramp['condicao'],
-                                  foto: ramp['foto'],
-                                  id: c.rampa.value.id,
-                                );
+                                  if (snapshot.hasData) {
+                                    var ramp = snapshot.data;
+                                    c.rampa.value = Rampa(
+                                      coordenadas: [
+                                        ramp!['coordenadas'][0],
+                                        ramp!['coordenadas'][1]
+                                      ],
+                                      dataAdicionado: ramp['data_adicionado'],
+                                      inclinacao: ramp['inclinacao'],
+                                      condicao: ramp['condicao'],
+                                      foto: ramp['foto'],
+                                      id: c.rampa.value.id,
+                                    );
 
-                                return Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        print("Clicou na imagem");
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            // retorna um objeto do tipo Dialog
-                                            return AlertDialog(
-                                              content: Hero(
-                                                  tag: c.rampa.value.id,
-                                                  child: Image.network(
-                                                      c.rampa.value.foto)),
-                                              actions: <Widget>[
-                                                // define os botões na base do dialogo
-                                                ElevatedButton(
-                                                  child: Text("Fechar"),
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                ),
-                                              ],
+                                    return Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                // retorna um objeto do tipo Dialog
+                                                return AlertDialog(
+                                                  content: Hero(
+                                                      tag: c.rampa.value.id,
+                                                      child: Image.network(
+                                                          c.rampa.value.foto)),
+                                                  actions: <Widget>[
+                                                    // define os botões na base do dialogo
+                                                    ElevatedButton(
+                                                      child: Text("Fechar"),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
                                             );
                                           },
-                                        );
-                                      },
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: 140,
-                                            width: 210,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                              child: Image.network(
-                                                  c.rampa.value.foto,
-                                                  height: 80.0,
-                                                  width: 80.0,
-                                                  fit: BoxFit.cover),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Row(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                              Container(
+                                                height: 140,
+                                                width: 210,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  child: Image.network(
+                                                      c.rampa.value.foto,
+                                                      height: 80.0,
+                                                      width: 80.0,
+                                                      fit: BoxFit.cover),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Row(
                                                 children: [
-                                                  Text("Cidade",
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 18)),
-                                                  Row(
+                                                  Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
-                                                            .center,
+                                                            .start,
                                                     children: [
-                                                      Icon(
-                                                        Icons.location_on,
-                                                        color: Colors.blue,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text("Santa Maria - RS",
+                                                      Text("Cidade",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .normal,
+                                                                      .bold,
                                                               fontSize: 18)),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.location_on,
+                                                            color: Colors.blue,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                              "Santa Maria - RS",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  fontSize:
+                                                                      18)),
+                                                        ],
+                                                      )
                                                     ],
-                                                  )
+                                                  ),
                                                 ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
                                         Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text("Inclinação",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18)),
-                                            Row(
+                                            Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Container(
-                                                  width: 15,
-                                                  height: 15,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: conditionColor(c
-                                                        .rampa
-                                                        .value
-                                                        .inclinacao),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
+                                                Text("Inclinação",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18)),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: 15,
+                                                      height: 15,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: conditionColor(c
+                                                            .rampa
+                                                            .value
+                                                            .inclinacao),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                        inclinacaoText(c.rampa
+                                                            .value.inclinacao),
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize: 18)),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text("Condição",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18)),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: 15,
+                                                      height: 15,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: conditionColor(c
+                                                            .rampa
+                                                            .value
+                                                            .condicao),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                        conditionText(c.rampa
+                                                            .value.condicao),
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize: 18)),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text("Latitude",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18)),
                                                 Text(
-                                                    inclinacaoText(c.rampa.value
-                                                        .inclinacao),
+                                                    c.rampa.value.coordenadas[0]
+                                                        .toString(),
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
                                                             FontWeight.normal,
-                                                        fontSize: 18)),
+                                                        fontSize: 18))
                                               ],
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Condição",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18)),
-                                            Row(
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Container(
-                                                  width: 15,
-                                                  height: 15,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: conditionColor(
-                                                        c.rampa.value.condicao),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
+                                                Text("Longitude",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18)),
                                                 Text(
-                                                    conditionText(
-                                                        c.rampa.value.condicao),
+                                                    c.rampa.value.coordenadas[1]
+                                                        .toString(),
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
                                                             FontWeight.normal,
-                                                        fontSize: 18)),
+                                                        fontSize: 18))
                                               ],
                                             )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Latitude",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18)),
-                                            Text(
-                                                c.rampa.value.coordenadas[0]
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontSize: 18))
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Longitude",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18)),
-                                            Text(
-                                                c.rampa.value.coordenadas[1]
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontSize: 18))
                                           ],
                                         )
                                       ],
-                                    )
-                                  ],
-                                );
-                              }
-                              return const Center(
-                                child: Text("Selecione uma rampa."),
-                              );
-                            }),
+                                    );
+                                  }
+                                  return const Center(
+                                    child: Text("Selecione uma rampa."),
+                                  );
+                                }),
+                      ),
+                    ],
                   ),
                 ),
               )));
