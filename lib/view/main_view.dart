@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Stack(children: [
           GoogleMap(
             onTap: (value) {
-              c.selected.value = false;
+              //c.selected.value = false;
             },
             mapType: MapType.terrain,
             initialCameraPosition: globals.userPos,

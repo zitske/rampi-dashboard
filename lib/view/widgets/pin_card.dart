@@ -77,22 +77,52 @@ class _PinCardState extends State<PinCard> {
                                           MainAxisAlignment.start,
                                       //crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Container(
-                                          height: 210.0,
-                                          width: 260,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.network(
-                                                c.rampa.value.foto,
-                                                height: 80.0,
-                                                width: 80.0,
-                                                fit: BoxFit.cover),
+                                        InkWell(
+                                          onTap: () {
+                                            print("Clicou na imagem");
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                // retorna um objeto do tipo Dialog
+                                                return AlertDialog(
+                                                  content: Hero(
+                                                      tag: c.rampa.value.id,
+                                                      child: Image.network(
+                                                          c.rampa.value.foto)),
+                                                  actions: <Widget>[
+                                                    // define os botões na base do dialogo
+                                                    ElevatedButton(
+                                                      child: new Text("Fechar"),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Container(
+                                            height: 210.0,
+                                            width: 260,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: Hero(
+                                                tag: c.rampa.value.id,
+                                                child: Image.network(
+                                                    c.rampa.value.foto,
+                                                    height: 80.0,
+                                                    width: 80.0,
+                                                    fit: BoxFit.cover),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         SizedBox(
@@ -357,74 +387,102 @@ class _PinCardState extends State<PinCard> {
 
                                 return Row(
                                   children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 140,
-                                          width: 210,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.network(
-                                                c.rampa.value.foto,
-                                                height: 80.0,
-                                                width: 80.0,
-                                                fit: BoxFit.cover),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text("Cidade",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 18)),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.location_on,
-                                                      color: Colors.blue,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text("Santa Maria - RS",
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontSize: 18)),
-                                                  ],
-                                                )
+                                    InkWell(
+                                      onTap: () {
+                                        print("Clicou na imagem");
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            // retorna um objeto do tipo Dialog
+                                            return AlertDialog(
+                                              content: Hero(
+                                                  tag: c.rampa.value.id,
+                                                  child: Image.network(
+                                                      c.rampa.value.foto)),
+                                              actions: <Widget>[
+                                                // define os botões na base do dialogo
+                                                ElevatedButton(
+                                                  child: Text("Fechar"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
                                               ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            height: 140,
+                                            width: 210,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
                                             ),
-                                          ],
-                                        ),
-                                      ],
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: Image.network(
+                                                  c.rampa.value.foto,
+                                                  height: 80.0,
+                                                  width: 80.0,
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("Cidade",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 18)),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.location_on,
+                                                        color: Colors.blue,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      Text("Santa Maria - RS",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              fontSize: 18)),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     SizedBox(
                                       width: 20,
