@@ -363,7 +363,9 @@ class _PinCardState extends State<PinCard> {
                   width: 300,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15.0),
+                        topRight: Radius.circular(15.0)),
                   ),
                   child: Stack(
                     children: [
